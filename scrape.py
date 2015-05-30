@@ -88,8 +88,3 @@ def scrape_NYC_metal_scene():
             continue
 
     return shows
-
-for show in scrape_NYC_metal_scene():
-    print show['original_date_text']
-    print show['information']
-    print '\n'
