@@ -88,3 +88,48 @@ def scrape_NYC_metal_scene():
             continue
 
     return shows
+
+def scrape_SF_list():
+    '''
+    Returns an array of dictionaries representing each upcoming metal show
+    from 'The List' of San Francisco shows.
+
+    The dictionaries are structured as:
+        {
+            'original_date_text': The date text scraped from the website.
+            'show_date': The arrow object representing the date of the show.
+            'information': The text containing bands and venue information.
+        }
+    '''
+    url = 'http://www.foopee.com/punk/the-list/by-date.0.html'
+    html_text = requests.get(url).text
+    soup = BeautifulSoup(html_text)
+
+    result_dict = {}
+
+    # gives the first unordered list as its own object
+    shows_element = soup.select('ul')[0]
+    weekly_shows = shows_element.select('li ul')
+
+    # weekly shows by index in shows_element object
+    for i, show in enumerate(weekly_shows):
+        date_text = shows_element.select('li a[name]')[i].text
+        result_dict[date_text] = \
+                [show.text.strip('\n') for show in weekly_shows[i].select('li')]
+
+    shows = []
+    for date_text in result_dict.keys():
+        year = str(arrow.now().year)
+        show_date = arrow.get(date_text + ' ' + year, 'ddd MMM D YYYY')
+        for show_info in result_dict[date_text]:
+            show_dict = {
+                    'original_date_text': date_text,
+                    'show_date': show_date,
+                    'information': show_info
+            }
+            shows.append(show_dict)
+            show_info = ''
+
+    return shows
+
+print scrape_SF_list()[0]
