@@ -127,9 +127,9 @@ def scrape_SF_list():
                     'show_date': show_date,
                     'information': show_info
             }
-            shows.append(show_dict)
+
+            if '@' in show_info:
+                shows.append(show_dict)
             show_info = ''
 
     return shows
-
-print scrape_SF_list()[0]
