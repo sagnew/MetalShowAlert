@@ -16,6 +16,7 @@ def get_show_messages(city):
         next_week = now.replace(weeks=+1).timestamp
         if show_ts >= now.timestamp and show_ts < next_week:
             shows_this_week.append(show)
+    shows_this_week = sorted(shows_this_week, key=lambda x: x['show_date'].timestamp)
 
     show_messages = []
     message_body = 'Shows in ' + city + ' this week:\n'
