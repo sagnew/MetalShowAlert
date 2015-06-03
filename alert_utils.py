@@ -7,8 +7,13 @@ from numbers import my_cell_phone, twilio_number
 client = TwilioRestClient(account_sid, auth_token)
 
 def get_show_messages(city):
-    # shows = scrape_NYC_metal_scene()
-    shows = scrape_SF_list()
+    shows = []
+    if city == 'SF' or city.lower() == 'san francisco':
+        shows = scrape_SF_list()
+    else:
+        city = 'NYC'
+        shows = scrape_NYC_metal_scene()
+
     shows_this_week = []
     for show in shows:
         show_ts = show['show_date'].timestamp
