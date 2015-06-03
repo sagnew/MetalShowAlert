@@ -27,7 +27,8 @@ def respond_with_shows():
     send_show_messages(number, message_body)
 
     resp = twilio.twiml.Response()
-    resp.message("You will receive show updates every Monday!")
+    resp.message("You will receive show updates every Monday! \
+            Respond with 'quit' to stop receiving messages.")
     return str(resp)
 
 if __name__ == "__main__":
