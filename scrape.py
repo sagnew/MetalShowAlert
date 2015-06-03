@@ -32,7 +32,7 @@ def scrape_NYC_metal_scene():
 
     url = 'http://nycmetalscene.com/'
     html_text = requests.get(url).text
-    soup = BeautifulSoup(html_text)
+    soup = BeautifulSoup(html_text, 'html.parser')
     shows_text = [show.text for show in
                   soup.findAll('td', id=re.compile('^Text2'))]
 
@@ -103,7 +103,7 @@ def scrape_SF_list():
     '''
     url = 'http://www.foopee.com/punk/the-list/by-date.0.html'
     html_text = requests.get(url).text
-    soup = BeautifulSoup(html_text)
+    soup = BeautifulSoup(html_text, 'lxml')
 
     result_dict = {}
 
