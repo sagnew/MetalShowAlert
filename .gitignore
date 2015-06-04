@@ -62,3 +62,4 @@ venv/
 # Python files not for public view
 numbers.py
 secrets.py
+requirements.txt
